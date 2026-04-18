@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { Navbar } from "@/components/verdiq/Navbar";
 import { Footer } from "@/components/verdiq/Footer";
 import { GradientBlobs } from "@/components/verdiq/GradientBlobs";
@@ -8,8 +9,11 @@ import { EsgCalculator } from "@/components/verdiq/EsgCalculator";
 import { AiChatbot } from "@/components/verdiq/AiChatbot";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
+} from "@/components/ui/dialog";
+import {
   Play, ExternalLink, Figma, Github, Code2,
-  ArrowLeft, Mail,
+  ArrowLeft, Mail, Sparkles,
 } from "lucide-react";
 
 export const Route = createFileRoute("/demo")({
@@ -35,6 +39,7 @@ const PROTO_ICONS = [Play, Figma, Code2, Github];
 
 function DemoPage() {
   const { t } = useI18n();
+  const [comingSoon, setComingSoon] = useState<string | null>(null);
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -111,11 +116,13 @@ function DemoPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.demo.protoLinks.map((p, i) => {
               const Icon = PROTO_ICONS[i] ?? ExternalLink;
+              const isComingSoon = Icon === Figma || Icon === Github;
               return (
                 <Reveal key={p.t} delay={i * 80}>
-                  <a
-                    href="#"
-                    className="group block h-full overflow-hidden rounded-2xl border border-hairline bg-glass p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-glow/30"
+                  <button
+                    type="button"
+                    onClick={() => isComingSoon && setComingSoon(p.t)}
+                    className="group block h-full w-full overflow-hidden rounded-2xl border border-hairline bg-glass p-5 text-left backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-glow/30"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-glow/20 to-green-glow/20 text-cyan-glow ring-1 ring-cyan-glow/20">
@@ -125,7 +132,7 @@ function DemoPage() {
                     </div>
                     <div className="mt-5 text-sm font-semibold text-foreground">{p.t}</div>
                     <div className="mt-1 text-xs text-muted-foreground">{p.d}</div>
-                  </a>
+                  </button>
                 </Reveal>
               );
             })}
@@ -185,6 +192,20 @@ function DemoPage() {
         </section>
       </main>
       <Footer />
+
+      <Dialog open={comingSoon !== null} onOpenChange={(o) => !o && setComingSoon(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-glow/20 to-green-glow/20 text-cyan-glow ring-1 ring-cyan-glow/20">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <DialogTitle className="text-center text-xl">Coming soon</DialogTitle>
+            <DialogDescription className="text-center">
+              {comingSoon} is on the way. We'll share access shortly · stay tuned.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
