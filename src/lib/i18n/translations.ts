@@ -153,7 +153,7 @@ const _translations = {
       title: "Get in touch",
       subtitle: "Tell us about your team and we'll reach out within 48 hours.",
       name: "Your name",
-      email: "Work email",
+      email: "t3859061@gmail.com",
       message: "How can we help?",
       send: "Send message",
       sent: "Thanks — we'll be in touch shortly.",
