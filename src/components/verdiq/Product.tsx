@@ -1,6 +1,7 @@
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import { useI18n } from "@/lib/i18n/I18nProvider";
+import { GridVector, DotsVector } from "./SectionVectors";
 import {
   Gauge, Brain, ShieldAlert, LayoutDashboard, FileText, Code2,
 } from "lucide-react";
@@ -11,8 +12,11 @@ export function Product() {
   const { t } = useI18n();
 
   return (
-    <Section eyebrow="Product" title={t.product.title} subtitle={t.product.subtitle}>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="relative">
+      <GridVector />
+      <DotsVector className="right-4 top-10 hidden lg:block" />
+      <Section eyebrow="Product" title={t.product.title} subtitle={t.product.subtitle}>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {t.product.items.map((it, i) => {
           const Icon = ICONS[i] ?? Gauge;
           return (
@@ -29,8 +33,9 @@ export function Product() {
               </div>
             </Reveal>
           );
-        })}
-      </div>
-    </Section>
+          })}
+        </div>
+      </Section>
+    </div>
   );
 }

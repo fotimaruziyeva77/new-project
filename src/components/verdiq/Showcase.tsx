@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Reveal } from "./Reveal";
+import { OrbitVector, DotsVector } from "./SectionVectors";
 import showcase1 from "@/assets/showcase-1.png";
 import showcase2 from "@/assets/showcase-2.png";
 
@@ -18,8 +19,10 @@ const slides = [
 
 export function Showcase() {
   return (
-    <section className="relative px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
+      <OrbitVector className="-right-40 top-0 hidden opacity-60 lg:block" />
+      <DotsVector className="bottom-10 left-6 hidden opacity-80 lg:block" />
+      <div className="relative mx-auto max-w-6xl">
         <Reveal>
           <Carousel opts={{ loop: true }} className="w-full">
             <CarouselContent>
