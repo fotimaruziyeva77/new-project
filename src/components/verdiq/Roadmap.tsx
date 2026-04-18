@@ -1,6 +1,7 @@
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import { useI18n } from "@/lib/i18n/I18nProvider";
+import { OrbitVector, WaveVector } from "./SectionVectors";
 import { Lightbulb, Rocket, Box, Sparkles } from "lucide-react";
 
 const ICONS = [Lightbulb, Box, Rocket, Sparkles];
@@ -9,7 +10,10 @@ export function Roadmap() {
   const { t } = useI18n();
 
   return (
-    <Section id="roadmap" eyebrow="Roadmap" title={t.roadmap.title} subtitle={t.roadmap.subtitle}>
+    <div className="relative overflow-hidden">
+      <OrbitVector className="-left-40 top-10 hidden opacity-70 lg:block" />
+      <WaveVector className="bottom-0 left-0 right-0" />
+      <Section id="roadmap" eyebrow="Roadmap" title={t.roadmap.title} subtitle={t.roadmap.subtitle}>
       <div className="relative">
         {/* Glow line */}
         <div
@@ -68,6 +72,7 @@ export function Roadmap() {
           })}
         </div>
       </div>
-    </Section>
+      </Section>
+    </div>
   );
 }
