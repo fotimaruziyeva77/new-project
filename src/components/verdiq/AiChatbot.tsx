@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { Sparkles, Send, Bot, User } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { toast } from "sonner";
+import { TestModeModal } from "./TestModeModal";
 
 interface ChatMsg {
   role: "user" | "assistant";
@@ -14,6 +15,7 @@ export function AiChatbot() {
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
+  const [isErrorOpen, setIsErrorOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -91,7 +93,7 @@ export function AiChatbot() {
       }
     } catch (e) {
       console.error(e);
-      toast.error(t.demo.chatError);
+      setIsErrorOpen(true);
       setMessages((prev) => prev.filter((m) => m.content !== ""));
     } finally {
       setStreaming(false);
@@ -108,8 +110,10 @@ export function AiChatbot() {
     : [{ role: "assistant", content: t.demo.chatGreeting }];
 
   return (
-    <div className="mx-auto max-w-3xl overflow-hidden rounded-2xl border border-hairline bg-glass-strong backdrop-blur-xl">
-      <div className="flex items-center justify-between border-b border-hairline px-5 py-3">
+    <>
+      <TestModeModal open={isErrorOpen} onOpenChange={setIsErrorOpen} />
+      <div className="mx-auto max-w-3xl overflow-hidden rounded-2xl border border-hairline bg-glass-strong backdrop-blur-xl">
+        <div className="flex items-center justify-between border-b border-hairline px-5 py-3">
         <div className="flex items-center gap-2.5">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow to-green-glow text-background">
             <Sparkles className="h-4 w-4" />
@@ -194,6 +198,7 @@ export function AiChatbot() {
           <Send className="h-4 w-4" />
         </button>
       </form>
-    </div>
+      </div>
+    </>
   );
 }

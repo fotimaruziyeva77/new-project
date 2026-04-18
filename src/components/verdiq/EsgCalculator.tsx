@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { Sparkles, Loader2, RotateCcw, ArrowRight, TrendingUp, Leaf, Users, Building2 } from "lucide-react";
 import { toast } from "sonner";
+import { TestModeModal } from "./TestModeModal";
 
 interface Recommendation {
   title: string;
@@ -29,6 +30,7 @@ export function EsgCalculator() {
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<string[]>(() => Array(questions.length).fill(""));
   const [result, setResult] = useState<ScoreResult | null>(null);
+  const [isErrorOpen, setIsErrorOpen] = useState(false);
 
   const reset = () => {
     setStage("intro");
@@ -68,7 +70,7 @@ export function EsgCalculator() {
       setStage("result");
     } catch (e) {
       console.error(e);
-      toast.error(e instanceof Error ? e.message : "Failed to compute score");
+      setIsErrorOpen(true);
       setStage("questions");
     }
   };
@@ -114,8 +116,10 @@ export function EsgCalculator() {
   const allAnswered = answers.every((a) => a !== "");
 
   return (
-    <div className="mx-auto max-w-2xl rounded-2xl border border-hairline bg-glass-strong p-6 backdrop-blur-xl sm:p-8">
-      <div className="mb-5 flex items-center justify-between">
+    <>
+      <TestModeModal open={isErrorOpen} onOpenChange={setIsErrorOpen} />
+      <div className="mx-auto max-w-2xl rounded-2xl border border-hairline bg-glass-strong p-6 backdrop-blur-xl sm:p-8">
+        <div className="mb-5 flex items-center justify-between">
         <span className="font-mono text-[10px] uppercase tracking-wider text-cyan-glow">
           {t.demo.calcQuestion} {current + 1} {t.demo.calcOf} {questions.length}
         </span>
@@ -183,6 +187,7 @@ export function EsgCalculator() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

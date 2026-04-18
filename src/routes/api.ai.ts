@@ -21,9 +21,9 @@ You MUST call the function 'return_esg_assessment' with the structured result. D
 interface ChatMessage { role: "user" | "assistant" | "system"; content: string }
 
 async function callGateway(body: object) {
-  const apiKey = process.env.LOVABLE_API_KEY;
-  if (!apiKey) throw new Error("LOVABLE_API_KEY is not configured");
-  return fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
+  return fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify(body),

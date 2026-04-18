@@ -11,7 +11,7 @@ export function Footer() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-glow/40 to-transparent" />
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-8">
         <div className="lg:col-span-2">
-          <Logo />
+          <Logo imgClassName="h-14 sm:h-auto sm:w-40" />
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
             {t.footer.mission}
           </p>
