@@ -7,7 +7,7 @@ export function Logo({ className = "" }: { className?: string }) {
       <img
         src={logoUrl}
         alt="Verdiq"
-        className="h-8 w-auto transition-opacity group-hover:opacity-90 dark:brightness-0 dark:invert-0"
+        className="h-8 w-auto transition-opacity group-hover:opacity-90"
       />
     </Link>
   );
