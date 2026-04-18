@@ -514,6 +514,7 @@ const _translations = {
       "ESG ballimni qanday yaxshilash mumkin?": "Uchta yuqori ta'sirli harakat: (1) ekologik siyosatlar va Scope 1–2 emissiyalarni hujjatlashtirish, (2) boshqaruv tuzilishini, jumladan kengash nizomini rasmiylashtirish, (3) DEI va yetkazib beruvchilar kodeksini chiqarish. Verdiq AI maslahatchisi ularni profilingizga ko'ra ta'sirga qarab tartiblaydi.",
       "Mening profilimning eng katta risklari nimada?": "Eng keng tarqalgan naqshlar: (1) emissiya bazasi yo'q, (2) rasmiy whistleblower kanali yo'q, (3) yetkazib beruvchilarning ESG skriningi cheklangan. Bular due diligence vaqtida investorlar belgilaydigan birinchi qizil bayroqlar.",
     },
+  },
 };
 
 export const translations: Record<Lang, Translation> = _translations;
