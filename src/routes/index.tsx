@@ -12,6 +12,7 @@ import { Plan } from "@/components/verdiq/Plan";
 import { Value } from "@/components/verdiq/Value";
 import { Contact } from "@/components/verdiq/Contact";
 import { FinalCTA } from "@/components/verdiq/FinalCTA";
+import { Showcase } from "@/components/verdiq/Showcase";
 import { SectionDivider } from "@/components/verdiq/Section";
 
 export const Route = createFileRoute("/")({
@@ -58,6 +59,7 @@ function HomePage() {
         <SectionDivider />
         <Contact />
         <FinalCTA />
+        <Showcase />
       </main>
       <Footer />
     </div>
