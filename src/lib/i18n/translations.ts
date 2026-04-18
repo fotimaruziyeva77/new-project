@@ -29,8 +29,15 @@ export interface Translation {
     aboutTitle: string; aboutText: string;
     protoTitle: string; protoLinks: ProtoLink[];
     chatTitle: string; chatSubtitle: string; chatPlaceholder: string; chatSamples: string[];
+    chatGreeting: string; chatError: string;
     apiTitle: string; apiSubtitle: string;
     finalTitle: string; finalSubtitle: string;
+    calcEyebrow: string; calcTitle: string; calcSubtitle: string;
+    calcStart: string; calcSubmit: string; calcRestart: string; calcLoading: string;
+    calcResultTitle: string; calcOverall: string; calcRecs: string;
+    calcPillarE: string; calcPillarS: string; calcPillarG: string;
+    calcQuestion: string; calcOf: string;
+    calcQs: { q: string; opts: { label: string; value: string }[] }[];
   };
   chatbot: Record<string, string>;
 }
