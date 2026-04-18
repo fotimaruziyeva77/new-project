@@ -265,6 +265,8 @@ const _translations = {
         ]},
       ],
     },
+    chatbot: {
+      "What is ESG?": "ESG stands for Environmental, Social, and Governance — the three pillars used to evaluate a company's sustainability and ethical impact. Verdiq scores each pillar and combines them into a unified ESG readiness score.",
       "How can I improve my ESG score?": "Three high-leverage moves: (1) document your environmental policies and Scope 1–2 emissions, (2) formalize your governance structure including a board charter, and (3) publish a clear DEI and supplier code of conduct. Verdiq's AI advisor will rank these by impact for your specific profile.",
       "What are the biggest risks in my current sustainability profile?": "Based on the most common patterns we see: (1) missing emissions baseline, (2) no formal whistleblower channel, and (3) limited supplier ESG screening. These are the first red flags investors flag during diligence.",
     },
