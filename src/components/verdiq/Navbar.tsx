@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Logo } from "./Logo";
 import { LangSwitcher } from "./LangSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 
 export function Navbar() {
@@ -76,6 +77,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <LangSwitcher />
+          <ThemeToggle />
           <Link
             to="/demo"
             className="hidden items-center gap-1.5 rounded-lg bg-gradient-to-r from-cyan-glow to-green-glow px-4 py-1.5 text-xs font-semibold text-background shadow-glow-cyan transition hover:brightness-110 sm:inline-flex"

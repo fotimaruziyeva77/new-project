@@ -1,14 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useRef, useEffect, type FormEvent } from "react";
 import { Navbar } from "@/components/verdiq/Navbar";
 import { Footer } from "@/components/verdiq/Footer";
 import { GradientBlobs } from "@/components/verdiq/GradientBlobs";
 import { Section, SectionDivider } from "@/components/verdiq/Section";
 import { Reveal } from "@/components/verdiq/Reveal";
+import { EsgCalculator } from "@/components/verdiq/EsgCalculator";
+import { AiChatbot } from "@/components/verdiq/AiChatbot";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import {
-  Play, ExternalLink, Figma, Github, Code2, Sparkles, Send,
-  ArrowLeft, Mail, Bot, User,
+  Play, ExternalLink, Figma, Github, Code2,
+  ArrowLeft, Mail,
 } from "lucide-react";
 
 export const Route = createFileRoute("/demo")({
@@ -19,12 +20,12 @@ export const Route = createFileRoute("/demo")({
       {
         name: "description",
         content:
-          "Watch the Verdiq prototype: AI ESG scoring, risk detection, the sustainability dashboard, and the AI ESG advisor.",
+          "Try the live ESG calculator, talk to the Verdiq AI advisor, and see how AI transforms sustainability evaluation.",
       },
       { property: "og:title", content: "Verdiq Demo — See ESG Intelligence in Action" },
       {
         property: "og:description",
-        content: "Prototype walkthrough of Verdiq's AI-powered ESG platform.",
+        content: "Live ESG scoring + AI advisor — try the Verdiq prototype.",
       },
     ],
   }),
@@ -57,6 +58,15 @@ function DemoPage() {
           </div>
         </section>
 
+        {/* ESG Calculator — front and center */}
+        <Section eyebrow={t.demo.calcEyebrow} title={t.demo.calcTitle} subtitle={t.demo.calcSubtitle}>
+          <Reveal>
+            <EsgCalculator />
+          </Reveal>
+        </Section>
+
+        <SectionDivider />
+
         {/* Video */}
         <section className="px-4 pb-16 sm:px-6 lg:px-8">
           <Reveal>
@@ -64,7 +74,7 @@ function DemoPage() {
               <h2 className="mb-5 text-center text-xs font-semibold uppercase tracking-wider text-foreground/60">
                 {t.demo.videoTitle}
               </h2>
-              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-surface-elevated/60 p-1.5 backdrop-blur-xl shadow-elevated">
+              <div className="group relative overflow-hidden rounded-2xl border border-hairline bg-glass-strong p-1.5 shadow-elevated">
                 <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-tr from-cyan-glow/15 via-transparent to-green-glow/15 blur-2xl" />
                 <div className="aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br from-background via-surface to-background">
                   <div className="flex h-full w-full items-center justify-center">
@@ -105,7 +115,7 @@ function DemoPage() {
                 <Reveal key={p.t} delay={i * 80}>
                   <a
                     href="#"
-                    className="group block h-full overflow-hidden rounded-2xl border border-white/10 bg-surface/50 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-glow/30"
+                    className="group block h-full overflow-hidden rounded-2xl border border-hairline bg-glass p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-glow/30"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-glow/20 to-green-glow/20 text-cyan-glow ring-1 ring-cyan-glow/20">
@@ -124,16 +134,16 @@ function DemoPage() {
 
         <SectionDivider />
 
-        {/* AI Chatbot */}
+        {/* AI Chatbot — real */}
         <Section eyebrow="AI Advisor" title={t.demo.chatTitle} subtitle={t.demo.chatSubtitle}>
           <Reveal>
-            <ChatbotMock />
+            <AiChatbot />
           </Reveal>
         </Section>
 
         <SectionDivider />
 
-        {/* API Access */}
+        {/* API */}
         <Section eyebrow="API" title={t.demo.apiTitle} subtitle={t.demo.apiSubtitle}>
           <Reveal>
             <ApiBlock />
@@ -156,7 +166,7 @@ function DemoPage() {
                 <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                   <Link
                     to="/"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur-md transition hover:border-cyan-glow/40 hover:bg-white/10"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-hairline bg-foreground/5 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur-md transition hover:border-cyan-glow/40 hover:bg-foreground/10"
                   >
                     <ArrowLeft className="h-4 w-4" />
                     {t.cta.backHome}
@@ -178,134 +188,6 @@ function DemoPage() {
     </div>
   );
 }
-
-/* ─── Chatbot mock ───────────────────────────────────── */
-
-interface ChatMsg {
-  role: "user" | "bot";
-  text: string;
-}
-
-function ChatbotMock() {
-  const { t } = useI18n();
-  const [messages, setMessages] = useState<ChatMsg[]>([
-    { role: "bot", text: "Hi — I'm the Verdiq ESG advisor. Try a sample question below." },
-  ]);
-  const [input, setInput] = useState("");
-  const [thinking, setThinking] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, thinking]);
-
-  const send = (text: string) => {
-    const trimmed = text.trim();
-    if (!trimmed) return;
-    setMessages((m) => [...m, { role: "user", text: trimmed }]);
-    setInput("");
-    setThinking(true);
-    setTimeout(() => {
-      const answer =
-        t.chatbot[trimmed] ??
-        "This is a demo response — in production, Verdiq's AI advisor will reply with a contextual ESG analysis based on your data.";
-      setMessages((m) => [...m, { role: "bot", text: answer }]);
-      setThinking(false);
-    }, 800);
-  };
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    send(input);
-  };
-
-  return (
-    <div className="mx-auto max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-surface/50 backdrop-blur-xl">
-      {/* Header */}
-      <div className="flex items-center justify-between border-b border-white/5 px-5 py-3">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow to-green-glow text-background">
-            <Sparkles className="h-4 w-4" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-foreground">Verdiq AI Advisor</div>
-            <div className="font-mono text-[10px] uppercase tracking-wider text-green-glow">● Online</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Messages */}
-      <div ref={scrollRef} className="max-h-[420px] space-y-4 overflow-y-auto px-5 py-5">
-        {messages.map((m, i) => (
-          <div key={i} className={`flex gap-3 ${m.role === "user" ? "flex-row-reverse" : ""}`}>
-            <div
-              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${
-                m.role === "user"
-                  ? "bg-white/10 text-foreground"
-                  : "bg-gradient-to-br from-cyan-glow to-green-glow text-background"
-              }`}
-            >
-              {m.role === "user" ? <User className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
-            </div>
-            <div
-              className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
-                m.role === "user"
-                  ? "bg-cyan-glow/10 text-foreground"
-                  : "border border-white/10 bg-white/[0.03] text-foreground/90"
-              }`}
-            >
-              {m.text}
-            </div>
-          </div>
-        ))}
-        {thinking && (
-          <div className="flex gap-3">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow to-green-glow">
-              <Bot className="h-3.5 w-3.5 text-background" />
-            </div>
-            <div className="flex items-center gap-1 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-glow" />
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-glow" style={{ animationDelay: "150ms" }} />
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-glow" style={{ animationDelay: "300ms" }} />
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Suggestions */}
-      <div className="flex flex-wrap gap-2 border-t border-white/5 bg-white/[0.02] px-5 py-3">
-        {t.demo.chatSamples.map((q) => (
-          <button
-            key={q}
-            type="button"
-            onClick={() => send(q)}
-            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-foreground/80 transition hover:border-cyan-glow/40 hover:text-cyan-glow"
-          >
-            {q}
-          </button>
-        ))}
-      </div>
-
-      {/* Input */}
-      <form onSubmit={onSubmit} className="flex gap-2 border-t border-white/5 px-5 py-4">
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={t.demo.chatPlaceholder}
-          className="flex-1 rounded-lg border border-white/10 bg-background/40 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none focus:border-cyan-glow/50 focus:ring-2 focus:ring-cyan-glow/20"
-        />
-        <button
-          type="submit"
-          className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-cyan-glow to-green-glow px-4 text-background transition hover:brightness-110"
-        >
-          <Send className="h-4 w-4" />
-        </button>
-      </form>
-    </div>
-  );
-}
-
-/* ─── API block ──────────────────────────────────────── */
 
 const ENDPOINTS = [
   {
@@ -343,9 +225,9 @@ function ApiBlock() {
       {ENDPOINTS.map((e) => (
         <div
           key={e.path}
-          className="overflow-hidden rounded-2xl border border-white/10 bg-surface/50 backdrop-blur-xl"
+          className="overflow-hidden rounded-2xl border border-hairline bg-glass-strong backdrop-blur-xl"
         >
-          <div className="flex items-center gap-3 border-b border-white/5 px-5 py-3">
+          <div className="flex items-center gap-3 border-b border-hairline px-5 py-3">
             <span
               className={`rounded-md px-2 py-0.5 font-mono text-[10px] font-semibold ${
                 e.method === "POST"
@@ -359,7 +241,7 @@ function ApiBlock() {
           </div>
           <div className="px-5 py-4">
             <p className="mb-3 text-xs text-muted-foreground">{e.desc}</p>
-            <pre className="overflow-x-auto rounded-lg border border-white/5 bg-background/60 p-4 font-mono text-xs leading-relaxed text-foreground/85">
+            <pre className="overflow-x-auto rounded-lg border border-hairline bg-background/60 p-4 font-mono text-xs leading-relaxed text-foreground/85">
               <code>{e.body}</code>
             </pre>
           </div>

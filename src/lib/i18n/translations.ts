@@ -29,8 +29,15 @@ export interface Translation {
     aboutTitle: string; aboutText: string;
     protoTitle: string; protoLinks: ProtoLink[];
     chatTitle: string; chatSubtitle: string; chatPlaceholder: string; chatSamples: string[];
+    chatGreeting: string; chatError: string;
     apiTitle: string; apiSubtitle: string;
     finalTitle: string; finalSubtitle: string;
+    calcEyebrow: string; calcTitle: string; calcSubtitle: string;
+    calcStart: string; calcSubmit: string; calcRestart: string; calcLoading: string;
+    calcResultTitle: string; calcOverall: string; calcRecs: string;
+    calcPillarE: string; calcPillarS: string; calcPillarG: string;
+    calcQuestion: string; calcOf: string;
+    calcQs: { q: string; opts: { label: string; value: string }[] }[];
   };
   chatbot: Record<string, string>;
 }
@@ -188,6 +195,75 @@ const _translations = {
       apiSubtitle: "Embed Verdiq scoring with three core endpoints.",
       finalTitle: "Interested in Verdiq?",
       finalSubtitle: "Let's talk about what an AI-native ESG platform can do for your team.",
+      chatGreeting: "Hi — I'm the Verdiq ESG advisor. Ask me anything about Environmental, Social, or Governance topics.",
+      chatError: "Sorry, I couldn't reach the AI service. Please try again.",
+      calcEyebrow: "ESG Calculator",
+      calcTitle: "Get your live ESG readiness score",
+      calcSubtitle: "Answer 10 quick questions. Our AI computes your score and personalized recommendations in seconds.",
+      calcStart: "Start the assessment",
+      calcSubmit: "Calculate my score",
+      calcRestart: "Run another assessment",
+      calcLoading: "Analyzing your ESG profile…",
+      calcResultTitle: "Your ESG Assessment",
+      calcOverall: "Overall score",
+      calcRecs: "AI Recommendations",
+      calcPillarE: "Environmental",
+      calcPillarS: "Social",
+      calcPillarG: "Governance",
+      calcQuestion: "Question",
+      calcOf: "of",
+      calcQs: [
+        { q: "Do you measure your Scope 1 & 2 carbon emissions?", opts: [
+          { label: "Yes — measured & reported annually", value: "fully measured and reported" },
+          { label: "Partially — some data tracked", value: "partial tracking" },
+          { label: "No — not yet measured", value: "not measured" },
+        ]},
+        { q: "What share of your energy comes from renewable sources?", opts: [
+          { label: ">75% renewable", value: "more than 75% renewable" },
+          { label: "25–75% renewable", value: "25-75% renewable" },
+          { label: "<25% renewable", value: "less than 25% renewable" },
+        ]},
+        { q: "Do you have a documented waste reduction or circular economy policy?", opts: [
+          { label: "Yes — formally documented", value: "documented and active" },
+          { label: "Informal practices only", value: "informal practices" },
+          { label: "No policy in place", value: "no policy" },
+        ]},
+        { q: "What is the gender diversity ratio in your leadership team?", opts: [
+          { label: "40–60% balanced", value: "40-60% balanced" },
+          { label: "20–40% representation", value: "20-40% representation" },
+          { label: "<20% representation", value: "less than 20% representation" },
+        ]},
+        { q: "Do you have a formal DEI (Diversity, Equity & Inclusion) policy?", opts: [
+          { label: "Yes — published & enforced", value: "published and enforced" },
+          { label: "Drafted but not enforced", value: "drafted only" },
+          { label: "No DEI policy", value: "no DEI policy" },
+        ]},
+        { q: "How do you screen suppliers for human-rights and ESG compliance?", opts: [
+          { label: "Formal vetting + audits", value: "formal vetting and audits" },
+          { label: "Basic checks only", value: "basic checks only" },
+          { label: "No screening process", value: "no screening" },
+        ]},
+        { q: "Does your company have an independent board or advisory committee?", opts: [
+          { label: "Independent board with charter", value: "independent board with charter" },
+          { label: "Informal advisors", value: "informal advisors" },
+          { label: "No board structure", value: "no board" },
+        ]},
+        { q: "Do you have a whistleblower or anonymous reporting channel?", opts: [
+          { label: "Yes — anonymous & active", value: "active anonymous channel" },
+          { label: "Open-door policy only", value: "open-door only" },
+          { label: "No channel exists", value: "no channel" },
+        ]},
+        { q: "How do you handle data privacy and security compliance?", opts: [
+          { label: "Certified (SOC 2/ISO 27001)", value: "certified SOC 2 or ISO 27001" },
+          { label: "Internal policies in place", value: "internal policies only" },
+          { label: "Ad-hoc handling", value: "ad-hoc" },
+        ]},
+        { q: "Do you publish an annual sustainability or impact report?", opts: [
+          { label: "Yes — published annually", value: "published annually" },
+          { label: "Internal report only", value: "internal only" },
+          { label: "Not produced", value: "not produced" },
+        ]},
+      ],
     },
     chatbot: {
       "What is ESG?": "ESG stands for Environmental, Social, and Governance — the three pillars used to evaluate a company's sustainability and ethical impact. Verdiq scores each pillar and combines them into a unified ESG readiness score.",
@@ -348,6 +424,75 @@ const _translations = {
       apiSubtitle: "Встройте скоринг Verdiq через три ключевых эндпоинта.",
       finalTitle: "Интересно?",
       finalSubtitle: "Давайте обсудим, что AI-native ESG-платформа может дать вашей команде.",
+      chatGreeting: "Привет — я ESG-советник Verdiq. Спросите меня о любом аспекте Environmental, Social или Governance.",
+      chatError: "Не удалось получить ответ от ИИ. Попробуйте ещё раз.",
+      calcEyebrow: "ESG-калькулятор",
+      calcTitle: "Получите живой ESG-балл готовности",
+      calcSubtitle: "Ответьте на 10 быстрых вопросов. ИИ рассчитает ваш балл и персональные рекомендации за секунды.",
+      calcStart: "Начать оценку",
+      calcSubmit: "Рассчитать мой балл",
+      calcRestart: "Пройти ещё раз",
+      calcLoading: "Анализируем ваш ESG-профиль…",
+      calcResultTitle: "Ваша ESG-оценка",
+      calcOverall: "Общий балл",
+      calcRecs: "Рекомендации ИИ",
+      calcPillarE: "Экология",
+      calcPillarS: "Социальное",
+      calcPillarG: "Управление",
+      calcQuestion: "Вопрос",
+      calcOf: "из",
+      calcQs: [
+        { q: "Измеряете ли вы выбросы Scope 1 и 2?", opts: [
+          { label: "Да — измеряем и отчитываемся ежегодно", value: "fully measured and reported" },
+          { label: "Частично — часть данных", value: "partial tracking" },
+          { label: "Нет — пока не измеряем", value: "not measured" },
+        ]},
+        { q: "Какая доля энергии из возобновляемых источников?", opts: [
+          { label: ">75% возобновляемой", value: "more than 75% renewable" },
+          { label: "25–75% возобновляемой", value: "25-75% renewable" },
+          { label: "<25% возобновляемой", value: "less than 25% renewable" },
+        ]},
+        { q: "Есть ли у вас политика по сокращению отходов или экономике замкнутого цикла?", opts: [
+          { label: "Да — формально задокументирована", value: "documented and active" },
+          { label: "Только неформальные практики", value: "informal practices" },
+          { label: "Политики нет", value: "no policy" },
+        ]},
+        { q: "Какова гендерная диверсификация в руководстве?", opts: [
+          { label: "40–60% сбалансировано", value: "40-60% balanced" },
+          { label: "20–40% представительства", value: "20-40% representation" },
+          { label: "<20% представительства", value: "less than 20% representation" },
+        ]},
+        { q: "Есть ли формальная политика DEI?", opts: [
+          { label: "Да — опубликована и применяется", value: "published and enforced" },
+          { label: "Подготовлена, но не применяется", value: "drafted only" },
+          { label: "Политики DEI нет", value: "no DEI policy" },
+        ]},
+        { q: "Как вы проверяете поставщиков на ESG-комплаенс?", opts: [
+          { label: "Формальная проверка + аудит", value: "formal vetting and audits" },
+          { label: "Только базовые проверки", value: "basic checks only" },
+          { label: "Не проверяем", value: "no screening" },
+        ]},
+        { q: "Есть ли независимый совет директоров или консультативный комитет?", opts: [
+          { label: "Независимый совет с уставом", value: "independent board with charter" },
+          { label: "Неформальные советники", value: "informal advisors" },
+          { label: "Совета нет", value: "no board" },
+        ]},
+        { q: "Есть ли канал whistleblower / анонимных сообщений?", opts: [
+          { label: "Да — анонимный и активный", value: "active anonymous channel" },
+          { label: "Только политика открытых дверей", value: "open-door only" },
+          { label: "Канала нет", value: "no channel" },
+        ]},
+        { q: "Как вы работаете с приватностью данных и безопасностью?", opts: [
+          { label: "Сертифицировано (SOC 2/ISO 27001)", value: "certified SOC 2 or ISO 27001" },
+          { label: "Внутренние политики", value: "internal policies only" },
+          { label: "Ad-hoc", value: "ad-hoc" },
+        ]},
+        { q: "Публикуете ли вы ежегодный отчёт об устойчивом развитии?", opts: [
+          { label: "Да — ежегодно", value: "published annually" },
+          { label: "Только внутренний отчёт", value: "internal only" },
+          { label: "Не публикуем", value: "not produced" },
+        ]},
+      ],
     },
     chatbot: {
       "Что такое ESG?": "ESG — это Environmental, Social, Governance: три столпа оценки устойчивости и этичности компании. Verdiq оценивает каждый и собирает их в единый показатель ESG-готовности.",
@@ -508,6 +653,75 @@ const _translations = {
       apiSubtitle: "Verdiq baholashini uchta asosiy endpoint orqali joylashtiring.",
       finalTitle: "Qiziqasizmi?",
       finalSubtitle: "AI-native ESG platformasi jamoangizga nima berishi mumkinligini muhokama qilaylik.",
+      chatGreeting: "Salom — men Verdiq ESG maslahatchisiman. Environmental, Social yoki Governance haqida xohlagan savolingizni bering.",
+      chatError: "Kechirasiz, AI xizmatiga ulana olmadim. Qaytadan urinib ko'ring.",
+      calcEyebrow: "ESG kalkulyator",
+      calcTitle: "Jonli ESG tayyorgarlik balingizni oling",
+      calcSubtitle: "10 ta tez savolga javob bering. AI sizning balingizni va shaxsiy tavsiyalaringizni soniyalar ichida hisoblab beradi.",
+      calcStart: "Baholashni boshlash",
+      calcSubmit: "Balimni hisoblash",
+      calcRestart: "Yana baholash",
+      calcLoading: "ESG profilingiz tahlil qilinmoqda…",
+      calcResultTitle: "Sizning ESG bahongiz",
+      calcOverall: "Umumiy ball",
+      calcRecs: "AI tavsiyalari",
+      calcPillarE: "Ekologik",
+      calcPillarS: "Ijtimoiy",
+      calcPillarG: "Boshqaruv",
+      calcQuestion: "Savol",
+      calcOf: "/",
+      calcQs: [
+        { q: "Scope 1 va 2 uglerod chiqindilarini o'lchaysizmi?", opts: [
+          { label: "Ha — har yili o'lchanadi va hisobot beriladi", value: "fully measured and reported" },
+          { label: "Qisman — ba'zi ma'lumotlar", value: "partial tracking" },
+          { label: "Yo'q — hali o'lchanmagan", value: "not measured" },
+        ]},
+        { q: "Energiyangizning qanchasi qayta tiklanadigan manbalardan?", opts: [
+          { label: ">75% qayta tiklanadigan", value: "more than 75% renewable" },
+          { label: "25–75% qayta tiklanadigan", value: "25-75% renewable" },
+          { label: "<25% qayta tiklanadigan", value: "less than 25% renewable" },
+        ]},
+        { q: "Chiqindilarni kamaytirish yoki dumaloq iqtisodiyot siyosatingiz bormi?", opts: [
+          { label: "Ha — rasmiy hujjatlashtirilgan", value: "documented and active" },
+          { label: "Faqat norasmiy amaliyotlar", value: "informal practices" },
+          { label: "Siyosat yo'q", value: "no policy" },
+        ]},
+        { q: "Rahbariyatingizdagi gender muvozanati qanday?", opts: [
+          { label: "40–60% muvozanatli", value: "40-60% balanced" },
+          { label: "20–40% vakillik", value: "20-40% representation" },
+          { label: "<20% vakillik", value: "less than 20% representation" },
+        ]},
+        { q: "Rasmiy DEI siyosatingiz bormi?", opts: [
+          { label: "Ha — chop etilgan va qo'llaniladi", value: "published and enforced" },
+          { label: "Tayyorlangan, lekin qo'llanmaydi", value: "drafted only" },
+          { label: "DEI siyosati yo'q", value: "no DEI policy" },
+        ]},
+        { q: "Yetkazib beruvchilarni ESG bo'yicha qanday tekshirasiz?", opts: [
+          { label: "Rasmiy tekshiruv + audit", value: "formal vetting and audits" },
+          { label: "Faqat asosiy tekshiruvlar", value: "basic checks only" },
+          { label: "Tekshirilmaydi", value: "no screening" },
+        ]},
+        { q: "Mustaqil kengash yoki maslahat qo'mitasi bormi?", opts: [
+          { label: "Mustaqil kengash + nizom", value: "independent board with charter" },
+          { label: "Norasmiy maslahatchilar", value: "informal advisors" },
+          { label: "Kengash yo'q", value: "no board" },
+        ]},
+        { q: "Whistleblower / anonim xabar berish kanali bormi?", opts: [
+          { label: "Ha — anonim va faol", value: "active anonymous channel" },
+          { label: "Faqat ochiq eshik siyosati", value: "open-door only" },
+          { label: "Kanal yo'q", value: "no channel" },
+        ]},
+        { q: "Ma'lumotlar maxfiyligi va xavfsizligini qanday boshqarasiz?", opts: [
+          { label: "Sertifikatlangan (SOC 2/ISO 27001)", value: "certified SOC 2 or ISO 27001" },
+          { label: "Ichki siyosatlar", value: "internal policies only" },
+          { label: "Ad-hoc", value: "ad-hoc" },
+        ]},
+        { q: "Yillik barqarorlik hisoboti chop etasizmi?", opts: [
+          { label: "Ha — har yili", value: "published annually" },
+          { label: "Faqat ichki hisobot", value: "internal only" },
+          { label: "Chop etilmaydi", value: "not produced" },
+        ]},
+      ],
     },
     chatbot: {
       "ESG nima?": "ESG — bu Environmental, Social, Governance: kompaniya barqarorligi va etikasini baholashning uch ustuni. Verdiq har birini baholaydi va ularni yagona ESG tayyorgarlik ko'rsatkichiga birlashtiradi.",
