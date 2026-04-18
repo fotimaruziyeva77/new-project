@@ -480,6 +480,6 @@ export const translations = {
       "Mening profilimning eng katta risklari nimada?": "Eng keng tarqalgan naqshlar: (1) emissiya bazasi yo'q, (2) rasmiy whistleblower kanali yo'q, (3) yetkazib beruvchilarning ESG skriningi cheklangan. Bular due diligence vaqtida investorlar belgilaydigan birinchi qizil bayroqlar.",
     },
   },
-} as const;
+};
 
-export type Translation = typeof translations.en;
+export type Translation = (typeof translations)["en"];
