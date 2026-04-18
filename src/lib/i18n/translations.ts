@@ -1,6 +1,41 @@
 export type Lang = "en" | "ru" | "uz";
 
-export const translations = {
+interface Item { t: string; d: string }
+interface Phase { p: string; t: string; items: string[] }
+interface Stage { t: string; d: string; status: string }
+interface Stat { v: string; t: string; d: string }
+interface Role { role: string; name: string }
+interface ProtoLink { t: string; d: string }
+
+export interface Translation {
+  nav: { home: string; solution: string; team: string; roadmap: string; demo: string; contact: string };
+  cta: { viewDemo: string; exploreSolution: string; watchDemo: string; contactTeam: string; backHome: string; getStarted: string };
+  hero: { eyebrow: string; title: string; subtitle: string; badges: string[] };
+  problem: { title: string; subtitle: string; items: Item[] };
+  solution: { title: string; subtitle: string; items: Item[] };
+  compare: { title: string; headers: string[]; rows: string[][] };
+  product: { title: string; subtitle: string; items: Item[] };
+  team: { title: string; subtitle: string; strengths: Item[]; coreTitle: string; roles: Role[]; links: { github: string; linkedin: string; portfolio: string } };
+  stack: { title: string; subtitle: string };
+  roadmap: { title: string; subtitle: string; stages: Stage[] };
+  plan: { title: string; subtitle: string; phases: Phase[] };
+  value: { title: string; subtitle: string; stats: Stat[] };
+  contact: { title: string; subtitle: string; name: string; email: string; message: string; send: string; sent: string };
+  finalCta: { title: string; subtitle: string };
+  footer: { mission: string; links: string; contact: string; social: string; rights: string };
+  demo: {
+    heroTitle: string; heroSubtitle: string;
+    videoTitle: string; videoNote: string;
+    aboutTitle: string; aboutText: string;
+    protoTitle: string; protoLinks: ProtoLink[];
+    chatTitle: string; chatSubtitle: string; chatPlaceholder: string; chatSamples: string[];
+    apiTitle: string; apiSubtitle: string;
+    finalTitle: string; finalSubtitle: string;
+  };
+  chatbot: Record<string, string>;
+}
+
+const _translations = {
   en: {
     nav: { home: "Home", solution: "Solution", team: "Team", roadmap: "Roadmap", demo: "Demo", contact: "Contact" },
     cta: { viewDemo: "View Demo", exploreSolution: "Explore Solution", watchDemo: "Watch Demo", contactTeam: "Contact Team", backHome: "Back to Home", getStarted: "Get Started" },
