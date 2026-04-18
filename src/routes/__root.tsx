@@ -1,9 +1,6 @@
-import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import { DemoProvider } from "@/contexts/DemoContext";
-import { RoleProvider } from "@/contexts/RoleContext";
+import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/react-router";
+import { I18nProvider } from "@/lib/i18n/I18nProvider";
 import { Toaster } from "@/components/ui/sonner";
-import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
-
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
@@ -11,28 +8,34 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Stackwise" },
-      { name: "description", content: "Manage inventory with real-time stock tracking, supplier management, purchase orders, and AI-powered demand forecasting. Includes role-based access, barcode sup" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Stackwise" },
-      { property: "og:description", content: "Manage inventory with real-time stock tracking, supplier management, purchase orders, and AI-powered demand forecasting. Includes role-based access, barcode sup" },
+      { title: "Verdiq — Intelligent ESG Analytics for the Future" },
+      {
+        name: "description",
+        content:
+          "Verdiq is the AI-native ESG intelligence platform. Measure ESG readiness, detect risks, and generate actionable sustainability insights for founders and investors.",
+      },
+      { name: "author", content: "Verdiq" },
+      { property: "og:title", content: "Verdiq — Intelligent ESG Analytics" },
+      {
+        property: "og:description",
+        content: "AI-powered ESG intelligence for smarter investment decisions.",
+      },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ce8fd1f7-8ca4-425d-a29c-052d48d54d68/id-preview-991ef288--eaf13a24-9d23-4ea5-ae81-bd8ed9669775.lovable.app-1774415671292.png" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ce8fd1f7-8ca4-425d-a29c-052d48d54d68/id-preview-991ef288--eaf13a24-9d23-4ea5-ae81-bd8ed9669775.lovable.app-1774415671292.png" },
-      { name: "twitter:title", content: "Stackwise" },
-      { name: "twitter:description", content: "Manage inventory with real-time stock tracking, supplier management, purchase orders, and AI-powered demand forecasting. Includes role-based access, barcode sup" },
+      { name: "twitter:title", content: "Verdiq — Intelligent ESG Analytics" },
+      {
+        name: "twitter:description",
+        content: "AI-powered ESG intelligence for smarter investment decisions.",
+      },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico" },
     ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
+  notFoundComponent: NotFound,
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
@@ -51,13 +54,29 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <DemoProvider>
-      <RoleProvider>
-        <ErrorBoundary>
-          <Outlet />
-        </ErrorBoundary>
-        <Toaster position="bottom-right" richColors />
-      </RoleProvider>
-    </DemoProvider>
+    <I18nProvider>
+      <Outlet />
+      <Toaster position="bottom-right" richColors theme="dark" />
+    </I18nProvider>
+  );
+}
+
+function NotFound() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-6 text-center">
+      <div>
+        <p className="text-sm font-medium text-cyan-glow">404</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight">Page not found</h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          The page you were looking for doesn't exist or has moved.
+        </p>
+        <Link
+          to="/"
+          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-glow to-green-glow px-5 py-2.5 text-sm font-semibold text-background"
+        >
+          Go Home
+        </Link>
+      </div>
+    </div>
   );
 }
