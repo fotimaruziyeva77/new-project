@@ -14,6 +14,7 @@ import { Contact } from "@/components/verdiq/Contact";
 import { FinalCTA } from "@/components/verdiq/FinalCTA";
 import { Showcase } from "@/components/verdiq/Showcase";
 import { SectionDivider } from "@/components/verdiq/Section";
+import { FloatingChatbot } from "@/components/verdiq/FloatingChatbot";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -62,6 +63,7 @@ function HomePage() {
         <Showcase />
       </main>
       <Footer />
+      <FloatingChatbot />
     </div>
   );
 }
