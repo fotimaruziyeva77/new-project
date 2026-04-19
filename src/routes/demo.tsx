@@ -8,6 +8,7 @@ import { Reveal } from "@/components/verdiq/Reveal";
 import { EsgCalculator } from "@/components/verdiq/EsgCalculator";
 import { AiChatbot } from "@/components/verdiq/AiChatbot";
 import { useI18n } from "@/lib/i18n/I18nProvider";
+import verdiqVideo from "@/assets/verdiqvd.mp4";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
@@ -82,15 +83,12 @@ function DemoPage() {
               <div className="group relative overflow-hidden rounded-2xl border border-hairline bg-glass-strong p-1.5 shadow-elevated">
                 <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-tr from-cyan-glow/15 via-transparent to-green-glow/15 blur-2xl" />
                 <div className="aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br from-background via-surface to-background">
-                  <div className="flex h-full w-full items-center justify-center">
-                    <button
-                      type="button"
-                      className="group/play relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-cyan-glow to-green-glow shadow-glow-cyan transition hover:scale-110"
-                    >
-                      <Play className="ml-1 h-7 w-7 text-background" fill="currentColor" />
-                      <span className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-cyan-glow to-green-glow opacity-50 blur-xl transition group-hover/play:opacity-80" />
-                    </button>
-                  </div>
+                  <video
+                    src={verdiqVideo}
+                    controls
+                    className="h-full w-full object-cover"
+                    preload="metadata"
+                  />
                 </div>
               </div>
               <p className="mt-3 text-center text-xs text-muted-foreground">{t.demo.videoNote}</p>
