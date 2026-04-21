@@ -158,32 +158,24 @@ function devServerFnErrorLogger() {
     },
   };
 }
+// ... boshqa importlar
+// import { cloudflare } from "@cloudflare/vite-plugin"; // buni yopib turing
 
 export default defineConfig(({ command }) => {
-  // Use Cloudflare Workers plugin for builds (produces worker output)
-  // Skip for dev server (command=serve) since workerd runtime isn't available
-  const useCloudflare = command === "build";
-
   return {
-    server: {
-      host: "::",
-      port: 8080,
-    },
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./src"),
-      },
-    },
+    // ... boshqa sozlamalar
     plugins: [
       tailwindcss(),
-      tsConfigPaths({
-        projects: ["./tsconfig.json"],
-      }),
+      tsConfigPaths({ projects: ["./tsconfig.json"] }),
       devClientErrorLogger(),
       devServerFnErrorLogger(),
-      ...(useCloudflare ? [cloudflare({ viteEnvironment: { name: "ssr" } })] : []),
+      // cloudflare qismini olib tashlang yoki yopib qo'ying
       tanstackStart(),
       viteReact(),
     ],
+    // Vercel uchun build papkasini aniqlashtiring
+    build: {
+      outDir: 'dist/client',
+    }
   };
 });
