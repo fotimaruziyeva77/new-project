@@ -163,12 +163,14 @@ function devServerFnErrorLogger() {
 
 export default defineConfig(({ command }) => {
   return {
+    base: '/',
     // ... boshqa sozlamalar
     plugins: [
       tailwindcss(),
       tsConfigPaths({ projects: ["./tsconfig.json"] }),
       devClientErrorLogger(),
       devServerFnErrorLogger(),
+      
       // cloudflare qismini olib tashlang yoki yopib qo'ying
       tanstackStart(),
       viteReact(),
