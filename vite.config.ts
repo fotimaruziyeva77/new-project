@@ -163,8 +163,8 @@ function devServerFnErrorLogger() {
 
 export default defineConfig(({ command }) => {
   return {
-    base: '/',
-    // ... boshqa sozlamalar
+    // ... boshqa sozlamalar'
+    'process.env': {},
     plugins: [
       tailwindcss(),
       tsConfigPaths({ projects: ["./tsconfig.json"] }),
