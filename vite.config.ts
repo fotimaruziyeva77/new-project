@@ -175,7 +175,8 @@ export default defineConfig(({ command }) => {
     ],
     // Vercel uchun build papkasini aniqlashtiring
     build: {
-      outDir: 'dist/client',
+      outDir: 'dist',
+      emptyOutDir: true,
     }
   };
 });
